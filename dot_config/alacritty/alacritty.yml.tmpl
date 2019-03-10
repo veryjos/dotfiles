@@ -24,12 +24,21 @@ window:
   # Units are physical pixels; this is not DPI aware.
   # (change requires restart)
   padding:
+{{- if eq .chezmoi.hostname "joscbook" }}
+    x: 12
+    y: 12
+{{- else }}
     x: 24
     y: 24
+{{- end }}
 
   # Window decorations
   # Setting this to false will result in window without borders and title bar.
+{{- if eq .chezmoi.os "darwin" }}
   decorations: buttonless
+{{- else if eq .chezmoi.os "linux" }}
+  decorations: none
+{{- end }}
 
 # Display tabs using this many cells (changes require restart)
 tabspaces: 8
@@ -41,24 +50,28 @@ draw_bold_text_with_bright_colors: true
 font:
   # The normal (roman) font face to use.
   normal:
-    family: "Menlo for Powerline"
+    family: "Menlo"
     # Style can be specified to pick a specific face.
     # style: Regular
 
   # The bold font face
   bold:
-    family: "Menlo for Powerline"
+    family: "Menlo"
     # Style can be specified to pick a specific face.
     # style: Bold
 
   # The italic font face
   italic:
-    family: "Menlo for Powerline"
+    family: "Menlo"
     # Style can be specified to pick a specific face.
     # style: Italic
 
   # Point size of the font
+{{- if eq .chezmoi.hostname "joscbook" }}
+  size: 7.0
+{{- else }}
   size: 14.0
+{{- end }}
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
