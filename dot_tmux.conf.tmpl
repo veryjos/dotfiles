@@ -1,4 +1,8 @@
+{{- if eq .chezmoi.os "darwin" }}
 set -g default-command /usr/local/bin/fish
+{{- else if eq .chezmoi.os "linux" }}
+set -g default-command /usr/bin/fish
+{{- end }}
 set -g default-shell /bin/bash
 set default-terminal "xterm-256color"
 
@@ -41,7 +45,7 @@ bind-key -n M-L choose-session
 bind-key -n M-N new-session
 
 if-shell "uname -s | grep -q Linux" \
-"source-file .tmux.linux.conf"
+"source-file .tmux.{{ .chezmoi.os }}.conf"
 
 bind -Tcopy-mode WheelUpPane send -N1 -X scroll-up
 bind -Tcopy-mode WheelDownPane send -N1 -X scroll-down
