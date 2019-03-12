@@ -17,3 +17,5 @@ fish_vi_key_bindings
 
 set PATH $PATH ~/.cargo/bin
 set PATH $PATH ~/tools
+
+set EDITOR /usr/bin/nvim
