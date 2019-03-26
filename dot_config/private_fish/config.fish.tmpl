@@ -18,7 +18,7 @@ fish_vi_key_bindings
 set PATH $PATH ~/.cargo/bin
 set PATH $PATH ~/tools
 
-set -x HUB_USER {{ .git.username }}
-set -x HUB_PAT  {{ .git.cli_pat }}
+set -x GITHUB_USERNAME {{ .git.username }}
+set -x GITHUB_PASSWORD {{ .git.cli_pat }}
 
 set EDITOR /usr/bin/nvim
