@@ -1,0 +1,2 @@
+sleep 5s &&
+compton --config ~/.config/compton.conf -b &
