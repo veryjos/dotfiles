@@ -69,5 +69,9 @@ set -g @plugin 'jimeh/tmux-themepack'
 
 set -g @themepack 'minimal'
 
+{{- if eq .chezmoi.hostname "josbox" }}
+  bind-key -T copy-mode MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel 'nc -U /tmp/clipboard.sock'
+{{- end }}
+
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
