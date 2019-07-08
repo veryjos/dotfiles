@@ -27,6 +27,9 @@ window:
 {{- if eq .chezmoi.hostname "joscbook" }}
     x: 12
     y: 12
+{{- else if eq .chezmoi.hostname "josbook" }}
+    x: 16
+    y: 16
 {{- else }}
     x: 24
     y: 24
@@ -66,6 +69,8 @@ font:
   # Point size of the font
 {{- if eq .chezmoi.hostname "joscbook" }}
   size: 6.5
+{{- else if eq .chezmoi.hostname "josbook" }}
+  size: 7
 {{- else }}
   size: 14.0
 {{- end }}
