@@ -24,7 +24,7 @@ window:
   # Units are physical pixels; this is not DPI aware.
   # (change requires restart)
   padding:
-{{- if eq .chezmoi.hostname "joscbook" }}
+{{- if eq .chezmoi.hostname "joschbook" }}
     x: 12
     y: 12
 {{- else if eq .chezmoi.hostname "josbook" }}
@@ -67,7 +67,7 @@ font:
     style: Italic
 
   # Point size of the font
-{{- if eq .chezmoi.hostname "joscbook" }}
+{{- if eq .chezmoi.hostname "joschbook" }}
   size: 6.5
 {{- else if eq .chezmoi.hostname "josbook" }}
   size: 7
