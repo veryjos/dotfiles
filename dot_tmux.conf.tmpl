@@ -44,9 +44,6 @@ bind-key -n M-0 select-window -t :10
 bind-key -n M-L choose-session
 bind-key -n M-N new-session
 
-if-shell "uname -s | grep -q Linux" \
-"source-file .tmux.{{ .chezmoi.os }}.conf"
-
 bind -Tcopy-mode WheelUpPane send -N1 -X scroll-up
 bind -Tcopy-mode WheelDownPane send -N1 -X scroll-down
 
