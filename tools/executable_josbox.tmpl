@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ $1 == 'ssh' ]; then
+  {{- if eq .chezmoi.os "darwin" }}
+    open --new -a Alacritty --args -t josbox -e ssh -t jos@josbox.dev -- "tmux attach -t general || tmux new -s general"
+  {{- else if eq .chezmoi.os "linux" }}
+    alacritty -t josbox -e ssh -t jos@josbox.dev -- "tmux attach -t general || tmux new -s general"
+  {{- end}}
+else
+  {{- if eq .chezmoi.os "darwin" }}
+    open --new -a Alacritty --args -t josbox -e ssh -t jos@josbox.dev -- "tmux attach -t general || tmux new -s general"
+  {{- else if eq .chezmoi.os "linux" }}
+    alacritty -e mosh jos@josbox.dev -- sh -c "tmux attach -t general || tmux new -s general"
+  {{- end }}
+fi
