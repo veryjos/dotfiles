@@ -1,0 +1,11 @@
+#!/usr/bin/sh
+
+export SESSION_NAME=$(tmux display-message -p '#S')
+export SESSION_PATH=~/vim/sessions/$SESSION_NAME
+
+if [ -e $SESSION_PATH ]
+then
+  nvim --cmd "let ide_mode=1" --cmd "let load_session='$SESSION_PATH'" $@
+else
+  nvim --cmd "let ide_mode=1" --cmd "let create_session='$SESSION_PATH'" $@
+fi

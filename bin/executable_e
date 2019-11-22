@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export SESSION_NAME=$(tmux display-message -p '#S')
+tmux select-window -t 2 && nvr --nostart --servername /tmp/nvim_server_$SESSION_NAME $@

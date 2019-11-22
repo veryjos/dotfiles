@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [[ -z $(get_mark $1) ]]
+then
+  echo $1=$PWD >> ~/.marks
+else
+  echo "mark $1 already exists"
+fi

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+OUTPUT=$(cat ~/.marks | grep "$1=.*\$" | cut -d= -f2)
+
+if [[ -z $1 || -z $OUTPUT ]]; then
+  exit 1
+fi
+
+echo $OUTPUT

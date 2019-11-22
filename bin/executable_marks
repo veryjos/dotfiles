@@ -1,0 +1,18 @@
+#!/bin/sh
+
+options=$(getopt -o t -- "$@")
+
+eval set -- "_ $options"
+while shift > /dev/null 2>&1; do
+  case "$1" in
+  -t)
+    TITLES=true
+    ;;
+  esac
+done
+
+if [[ -n $TITLES ]]; then
+  cat ~/.marks | cut -d= -f1
+else
+  cat ~/.marks
+fi

@@ -1,3 +1,7 @@
+if test -e ~/.google_config.fish
+  source ~/.google_config.fish
+end
+
 set -U XTERM_VERSION 0
 set -U fish_prompt_pwd_dir_length 0
 
@@ -12,18 +16,105 @@ function checkout_prev
 end
 
 alias l=ls
+alias la="ls -lah"
 alias vim=nvim
 alias backlite="sudo backlite /sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-eDP-1/intel_backlight"
+alias clear="clear -x"
+
+function fzf_tmux_session
+  tmux switch-client -t (tmux list-sessions -F '#S' | fzf)
+end
+
+function fzf_cd -d "Change directory"
+  set -l commandline (__fzf_parse_commandline)
+  set -l dir $commandline[1]
+  set -l fzf_query $commandline[2]
+
+  set -q FZF_ALT_C_COMMAND; or set -l FZF_ALT_C_COMMAND "command rg --hidden --sort-files --files --null 2> /dev/null | xargs -0 dirname | uniq"
+  set -q FZF_TMUX_HEIGHT; or set FZF_TMUX_HEIGHT 40%
+  begin
+    set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT --reverse $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS"
+    eval "$FZF_ALT_C_COMMAND | "(__fzfcmd)' +m --query "'$fzf_query'"' | read -l result
+
+    if [ -n "$result" ]
+      cd $result
+
+      # Remove last token from commandline.
+      commandline -t ""
+    end
+  end
+end
+
+function recall
+  set -l MARK (get_mark $argv[1])
+  test $status -eq 0 && cd $MARK
+
+  commandline -f repaint
+end
+
+function recall_fzf
+  set -q FZF_TMUX_HEIGHT; or set FZF_TMUX_HEIGHT 40%
+  set -lx FZF_DEFAULT_OPTS "--height $FZF_TMUX_HEIGHT --reverse $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS"
+  recall (marks -t | fzf)
+end
+
+bind -M insert -k btab fzf-cd-widget
+bind -M insert \es fzf_tmux_session
+bind -M insert \eb recall_fzf
+bind -M insert \ea "prevd && commandline -f repaint"
+bind -M insert \ed "nextd && commandline -f repaint"
+
 fish_vi_key_bindings
 
 set PATH $PATH ~/.cargo/bin
 set PATH $PATH ~/tools
-set PATH $PATH ~/.ghcup/bin
 set PATH $PATH /usr/bin/vendor_perl
 set PATH $PATH ~/.pub-cache/bin
+set PATH $PATH ~/bin
 
 set -x GITHUB_USERNAME {{ .git.username }}
 set -x GITHUB_PASSWORD {{ .git.cli_pat }}
 
-set EDITOR /usr/bin/nvim
-set PATH ~/dev/bitwarden $PATH
+set -x EDITOR /usr/bin/nvim
+
+set _color_pwd            (set_color brblue)
+set _color_hostname       (set_color brblack)
+set _color_prompt_sym     (set_color brblack)
+set _color_prompt_sym_vim (set_color red)
+
+# my big new prompt
+function fish_prompt
+    # leading newline
+    printf '\\n'
+
+    # print path (max 60 col)
+    set --local folder (string replace $HOME '~' $PWD)
+
+    if test (string length "$folder") -gt 60
+        echo -n $_color_pwd(echo ...)(echo "$folder" | tail -c 60)
+    else
+        echo -n $_color_pwd"$folder"
+    end
+
+    # print hostname (only if in ssh session)
+    if test "$SSH_CONNECTION" != ""
+        echo -n " $_color_hostname"(hostname)
+    end
+
+    # newline and clear line ending
+    echo -e '\x1b[K'
+
+    # prompt indicator
+    switch $fish_bind_mode
+        case insert
+            echo -n $_color_prompt_sym'❯ '
+        case '*'
+            echo -n $_color_prompt_sym_vim'! '
+    end
+end
+
+function fish_mode_prompt
+end
+
+function fish_greeting
+end
