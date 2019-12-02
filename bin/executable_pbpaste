@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# on macos just use normal pbcopy
+case "$(uname -s)" in
+    Linux*)  xclip -selection clipboard -o;;
+    Darwin*) pbpaste;;
+esac
