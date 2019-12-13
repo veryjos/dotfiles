@@ -25,6 +25,10 @@ call plug#end()
 colorscheme onehalfdark
 let g:airline_theme='onehalfdark'
 
+" configure vim-lsc for some langs
+let g:lsc_server_commands = {}
+let g:lsc_server_commands['rust'] = 'rls'
+
 syntax enable
 filetype plugin indent on
 
