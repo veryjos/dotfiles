@@ -42,7 +42,14 @@ nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 
-map <M-Z> <Plug>(zoom-toggle)<CR>
+if exists("ide_mode")
+  map <M-Z> <Plug>(zoom-toggle)<CR>
+
+  map <S-q> :LSClientWorkspaceSymbol<CR>
+  map <C-d> :LSClientGoToDefinition<CR>
+  map <C-u> :LSClientFindReferences<CR>
+  map <C-c> :LSClientFindCodeActions<CR>
+endif
 
 map <M-H> :vsplit<CR>
 map <M-V> :split<CR>
@@ -74,6 +81,9 @@ map <S-tab> :FZF<CR>
 map <S-c> :Commands<CR>
 map <S-w> :Windows<CR>
 
+nnoremap <silent> <backspace> <C-o>
+nnoremap <silent> <F7> <C-i>
+
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none
 highlight LineNr ctermbg=none
@@ -96,3 +106,18 @@ endif
 
 :nnoremap <BS> <C-o>
 :nnoremap <F13> <C-i>
+
+" netrw mapping overrides
+" should rebind sort eventually
+function! NetrwMapping()
+  nunmap <buffer> s
+  nunmap <buffer> S
+endfunction
+
+function! PrintRegister(id)
+  echo(@id)
+endfunction
+
+set sessionoptions-=buffers
+
+autocmd filetype netrw call NetrwMapping()
