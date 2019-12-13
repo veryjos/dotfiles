@@ -4,6 +4,5 @@ export PATH=~/bin:$PATH
 export NVR_CMD='nvim_ide'
 export SESSION_NAME=$(tmux display-message -p '#S')
 
-rm /tmp/nvim_server_$SESSION_NAME
-
+rm -f /tmp/nvim_server_$SESSION_NAME
 nvr -s --servername /tmp/nvim_server_$SESSION_NAME
