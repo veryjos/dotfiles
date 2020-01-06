@@ -25,8 +25,8 @@ window:
   # (change requires restart)
   padding:
 {{- if eq .chezmoi.hostname "joschbook" }}
-    x: 12
-    y: 12
+    x: 20
+    y: 20
 {{- else if eq .chezmoi.hostname "josbook" }}
     x: 16
     y: 16
@@ -66,7 +66,7 @@ font:
 
   # Point size of the font
 {{- if eq .chezmoi.hostname "joschbook" }}
-  size: 6.5
+  size: 12.25
 {{- else if eq .chezmoi.hostname "josbook" }}
   size: 7
 {{- else }}
