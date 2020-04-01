@@ -13,9 +13,10 @@ call plug#begin()
   Plug 'sonph/onehalf', {'rtp': 'vim/'}
 
   if exists("ide_mode")
-    Plug 'natebosch/vim-lsc'
-
-    Plug 'dart-lang/dart-vim-plugin'
+    Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
 
     Plug 'tpope/vim-obsession'
   endif
@@ -41,10 +42,7 @@ nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 
-if exists("ide_mode")
-  map <M-Z> <Plug>(zoom-toggle)<CR>
-  map <S-q> :LSClientWorkspaceSymbol<CR>
-endif
+map <M-Z> <Plug>(zoom-toggle)<CR>
 
 map <M-H> :vsplit<CR>
 map <M-V> :split<CR>
@@ -54,10 +52,6 @@ map <M-w> :tabclose<CR>
 map <M-q> :tabp<CR>
 map <M-e> :tabn<CR>
 
-map <C-d> :LSClientGoToDefinition<CR>
-map <C-u> :LSClientFindReferences<CR>
-map <C-c> :LSClientFindCodeActions<CR>
-
 set splitbelow
 set splitright
 
@@ -66,33 +60,6 @@ let g:netrw_liststyle = 3
 
 map s <Plug>(easymotion-bd-f)
 map S <Plug>(easymotion-overwin-f)
-
-" Use all the defaults (recommended):
-let g:lsc_auto_map = v:true
-
-" Apply the defaults with a few overrides:
-let g:lsc_auto_map = {'defaults': v:true, 'FindReferences': '<leader>r'}
-
-" Setting a value to a blank string leaves that command unmapped:
-let g:lsc_auto_map = {'defaults': v:true, 'FindImplementations': ''}
-
-" ... or set only the commands you want mapped without defaults.
-" Complete default mappings are:
-let g:lsc_auto_map = {
-    \ 'GoToDefinition': '<C-]>',
-    \ 'GoToDefinitionSplit': ['<C-W>]', '<C-W><C-]>'],
-    \ 'FindReferences': 'gr',
-    \ 'NextReference': '<C-n>',
-    \ 'PreviousReference': '<C-p>',
-    \ 'FindImplementations': 'gI',
-    \ 'FindCodeActions': 'ga',
-    \ 'Rename': 'gR',
-    \ 'ShowHover': v:true,
-    \ 'DocumentSymbol': 'go',
-    \ 'WorkspaceSymbol': 'gS',
-    \ 'SignatureHelp': 'gm',
-    \ 'Completion': 'completefunc',
-    \}
 
 set shell=/usr/bin/fish\ -i
 
@@ -115,3 +82,17 @@ highlight Split ctermbg=none ctermfg=green
 highlight TabLineFill ctermbg=none
 highlight TabLine ctermbg=none
 
+set hidden
+
+let g:LanguageClient_serverCommands = {
+  \ 'rust': ['/usr/bin/rustup', 'run', 'nightly', 'rls'],
+  \ }
+
+if exists("ide_mode")
+  map <C-c> :call LanguageClient_contextMenu()<CR>
+  map <C-s> :call LanguageClient#textDocument_hover()<CR>
+  map <C-d> :call LanguageClient#textDocument_definition()<CR>
+endif
+
+:nnoremap <BS> <C-o>
+:nnoremap <F13> <C-i>
