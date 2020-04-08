@@ -114,8 +114,8 @@ endif
 " netrw mapping overrides
 " should rebind sort eventually
 function! NetrwMapping()
-  nunmap <buffer> s
-  nunmap <buffer> S
+  nunmap <silent> <buffer> s
+  nunmap <silent> <buffer> S
 endfunction
 
 function! PrintRegister(id)
