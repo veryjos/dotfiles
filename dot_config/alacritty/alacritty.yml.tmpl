@@ -28,8 +28,8 @@ window:
     x: 20
     y: 20
 {{- else if eq .chezmoi.hostname "josbook" }}
-    x: 16
-    y: 16
+    x: 0
+    y: 0
 {{- else }}
     x: 24
     y: 24
@@ -68,7 +68,7 @@ font:
 {{- if eq .chezmoi.hostname "joschbook" }}
   size: 12.25
 {{- else if eq .chezmoi.hostname "josbook" }}
-  size: 7
+  size: 6.75
 {{- else }}
   size: 14.0
 {{- end }}
@@ -91,31 +91,27 @@ font:
   # false.
   use_thin_strokes: false
 
-# Colors (One Half Dark)
-colors:
-  primary:
-    background: '0x282c34'
-    foreground: '0xdcdfe4'
-
+# Normal colors
   normal:
-    black: '0x555555'
-    red: '0xe06c75'
-    green: '0x98c379'
-    yellow: '0xe5c07b'
-    blue: '0x61afef'
-    magenta: '0xc678dd'
-    cyan: '0x56b6c2'
-    white: '0xdcdfe4'
+    black:   '0x000000'
+    red:     '0xf87070'
+    green:   '0x79dcaa'
+    yellow:  '0xffe59e'
+    blue:    '0x7ab0df'
+    magenta: '0xc397d8'
+    cyan:    '0x70c0ba'
+    white:   '0xd4d4d5'
 
+  # Bright colors
   bright:
-    black: '0x777777'
-    red: '0xe06c75'
-    green: '0x98c379'
-    yellow: '0xe5c07b'
-    blue: '0x61afef'
-    magenta: '0xc678dd'
-    cyan: '0x56b6c2'
-    white: '0xdcdfe4'
+    black:   '0x666666'
+    red:     '0xf87070'
+    green:   '0x79dcaa'
+    yellow:  '0xffe59e'
+    blue:    '0x7ab0df'
+    magenta: '0xb77ee0'
+    cyan:    '0x54ced6'
+    white:   '0xffffff'
 
 # Visual Bell
 #
@@ -144,7 +140,7 @@ visual_bell:
   duration: 0
 
 # Background opacity
-background_opacity: 0.90
+background_opacity: 0.85
 
 # Mouse bindings
 #
