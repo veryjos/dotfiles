@@ -1,0 +1,21 @@
+{
+  "gap": 12,
+  "displayEdgeGap": 6,
+
+  "bindings": {
+    "ctrl+shift+u": "TopLeft",
+    "ctrl+shift+i": "Top",
+    "ctrl+shift+o": "TopRight",
+    "ctrl+shift+j": "Left",
+    "ctrl+shift+k": "Middle",
+    "ctrl+shift+l": "Right",
+    "ctrl+shift+m": "BottomLeft",
+{{- if eq .chezmoi.os "darwin" }}
+    "cmd+shift+,": "Bottom",
+    "cmd+shift+.": "BottomRight",
+{{- else if eq .chezmoi.os "linux" }}
+    "ctrl+shift+comma": "Bottom",
+    "ctrl+shift+greater": "BottomRight"
+{{- end }}
+  }
+}
