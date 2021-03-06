@@ -3,6 +3,19 @@
   "displayEdgeGap": 6,
 
   "bindings": {
+{{- if eq .chezmoi.os "darwin" }}
+    "cmd+shift+u": "TopLeft",
+    "cmd+shift+i": "Top",
+    "cmd+shift+o": "TopRight",
+    "cmd+shift+j": "Left",
+    "cmd+shift+k": "Middle",
+    "cmd+shift+l": "Right",
+    "cmd+shift+m": "BottomLeft",
+    "cmd+shift+,": "Bottom",
+    "cmd+shift+.": "BottomRight",
+{{- else if eq .chezmoi.os "linux" }}
+    "ctrl+shift+comma": "Bottom",
+    "ctrl+shift+greater": "BottomRight"
     "ctrl+shift+u": "TopLeft",
     "ctrl+shift+i": "Top",
     "ctrl+shift+o": "TopRight",
@@ -10,12 +23,8 @@
     "ctrl+shift+k": "Middle",
     "ctrl+shift+l": "Right",
     "ctrl+shift+m": "BottomLeft",
-{{- if eq .chezmoi.os "darwin" }}
-    "cmd+shift+,": "Bottom",
-    "cmd+shift+.": "BottomRight",
-{{- else if eq .chezmoi.os "linux" }}
     "ctrl+shift+comma": "Bottom",
-    "ctrl+shift+greater": "BottomRight"
+    "ctrl+shift+greater": "BottomRight",
 {{- end }}
   }
 }
