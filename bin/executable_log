@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export SESSION_NAME=$(tmux display-message -p '#S')
+vim ~/dev/wiki-impl/log/2021/novemeber.md
