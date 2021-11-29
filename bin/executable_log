@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 
 export SESSION_NAME=$(tmux display-message -p '#S')
-vim ~/dev/wiki-impl/log/2021/novemeber.md
+
+YEAR=`date +%Y`
+MONTH=`date +%B`
+MONTH=${MONTH,,}
+
+vim ~/dev/wiki-impl/log/$YEAR/$MONTH.md
